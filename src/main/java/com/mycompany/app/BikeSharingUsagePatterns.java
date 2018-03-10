@@ -22,6 +22,7 @@ public final class BikeSharingUsagePatterns {
             return new Trip(Integer.parseInt(fields[0]), Float.parseFloat(fields[1]), fields[2].trim(), fields[3], Integer.parseInt(fields[4]), fields[5], fields[6], Integer.parseInt(fields[7]), Integer.parseInt(fields[8]), fields[9], Integer.parseInt(fields[10]));
         });
 
+        // Part 3: calculate bike rides starting in a given city
         JavaPairRDD<Trip, Integer> trips_today =  rdd_trips.filter(line -> {
             return line.getStart_date().contains("8/29/2013");
         }).mapToPair(line -> {
