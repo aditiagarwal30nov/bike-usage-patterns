@@ -18,3 +18,6 @@ Reduce phase:
 Group by cities and add the counts to get the (StartStationId, number_of_trips_in_a_day).
 
 Finally take the Station dataset and map the station Ids to cities and group based on that.
+
+## update mar 21
+Cindy updated this file
