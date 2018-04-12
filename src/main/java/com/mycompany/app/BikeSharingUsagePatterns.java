@@ -12,19 +12,19 @@ public final class BikeSharingUsagePatterns {
 
         JavaSparkContext sc = new JavaSparkContext(new SparkConf().setMaster("local").setAppName("BikesharingUsagePatterns").set("spark.files.overwrite", "true"));
 
-        JavaRDD<String> data = sc.textFile("trip_small.csv");
-
+        JavaRDD<String> data = sc.textFile("trip.csv");
+        int i = 0;
         JavaRDD<Trip> rdd_trips = data.filter(line -> {
             String[] fields = line.split(",");
                         return (fields.length == 11);
                 }).map(line -> {
             String[] fields = line.split(",");
-            return new Trip(Integer.parseInt(fields[0]), Float.parseFloat(fields[1]), fields[2].trim(), fields[3], Integer.parseInt(fields[4]), fields[5], fields[6], Integer.parseInt(fields[7]), Integer.parseInt(fields[8]), fields[9], Integer.parseInt(fields[10]));
+            return new Trip(Integer.parseInt(fields[0]), Float.parseFloat(fields[1]), fields[2].trim(), fields[3], Integer.parseInt(fields[4]), fields[5], fields[6], Integer.parseInt(fields[7]), Integer.parseInt(fields[8]), fields[9], fields[10]);
         });
 
-        // Part 3: calculate bike rides starting in a given city
+        // Part 3: calculate bike rides on a particular day
         JavaPairRDD<Trip, Integer> trips_today =  rdd_trips.filter(line -> {
-            return line.getStart_date().contains("8/29/2013");
+            return line==line; //.getStart_date().contains("8/29/2013");
         }).mapToPair(line -> {
             return new Tuple2<>(line, 1);
         });
@@ -39,7 +39,9 @@ public final class BikeSharingUsagePatterns {
                     }
                     return new Tuple2<>(entry._1, total);
                 }
-        );
+        ).mapToPair(s -> {
+            return new Tuple2<>(s._2, s._1);
+        }).sortByKey();
 
         bikeRidesPerStationId.saveAsTextFile("outfile");
     }

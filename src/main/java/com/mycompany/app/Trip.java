@@ -11,9 +11,9 @@ public class Trip {
     private int end_station_id;
     private int bike_id;
     private String subscription_type;
-    private int zip_code;
+    private String zip_code;
 
-    public Trip(int id, float duration, String start_date, String start_station_name, int start_station_id, String end_date, String end_station_name, int end_station_id, int bike_id, String subscription_type, int zip_code) {
+    public Trip(int id, float duration, String start_date, String start_station_name, int start_station_id, String end_date, String end_station_name, int end_station_id, int bike_id, String subscription_type, String zip_code) {
         this.id = id;
         this.duration = duration;
         this.start_date = start_date;
@@ -107,11 +107,11 @@ public class Trip {
         this.subscription_type = subscription_type;
     }
 
-    public int getZip_code() {
+    public String getZip_code() {
         return zip_code;
     }
 
-    public void setZip_code(int zip_code) {
+    public void setZip_code(String zip_code) {
         this.zip_code = zip_code;
     }
 }
